@@ -10,6 +10,9 @@ Path to the cleaning your build except latest 3 --
 /home/vagrant/build/clean.sh
 
 Alias added for build to .bashrc file --
+
 alias build="~/build/build_from_dump.sh ~/build/variables.sh"
+
 alias buildd7="~/build/build.sh ~/build/variables.sh"
+
 alias clean="~/build/clean.sh ~/build/variables.sh"
