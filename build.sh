@@ -59,7 +59,7 @@ sudo ln -s ${BUILD_DIR} ${DOC_ROOT} 2>&1 \
   && echo -e "done\n" \
   || { echo -e "FAILED 3!\n"; exit 3; }
 
-echo -ne "# Symlink ${BUILD_DIR}/${BUILD} to ${WEB_DIR}/${BUILD}... "
+echo -ne "# Symlink ${BUILD_DIR} to ${WEB_DIR}/${BUILD}... "
 sudo ln -s ${BUILD_DIR} ${BUILD} 2>&1 \
   && echo -e "done\n" \
   || { echo -e "FAILED 3.2!\n"; exit 3.2; }
