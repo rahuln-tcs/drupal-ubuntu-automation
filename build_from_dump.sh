@@ -110,14 +110,14 @@ echo "# ************************************
 # ************************************
 
 <VirtualHost *:80>
-  ServerName ${BUILD}.demoserver.com
+  ServerName ${BUILD_ROOT}.demoserver.com
 
   ## Vhost docroot
-  DocumentRoot "/var/www/${BUILD}"
+  DocumentRoot "${BUILD_ROOT}"
 
   ## Directories, there should at least be a declaration for /www/rml/current
 
-  <Directory "/var/www/${BUILD}">
+  <Directory "${BUILD_ROOT}">
     Options FollowSymLinks
     AllowOverride all
     Order allow,deny
@@ -143,7 +143,26 @@ echo "# ************************************
   php_value post_max_size 10M
 </IfModule>
 
-</VirtualHost>" >> $FILE
+</VirtualHost>
+<VirtualHost *:443>
+ ServerName ${BUILD}.demoserver.com
+ DocumentRoot ${BUILD_ROOT}
+
+ SSLEngine on
+ SSLCipherSuite AES256+EECDH:AES256+EDH
+ SSLProtocol All -SSLv2 -SSLv3
+ SSLHonorCipherOrder On
+ SSLCompression off
+ SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem
+ SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+
+ <Directory ${BUILD_ROOT}>
+   AllowOverride All
+   Options -Indexes +FollowSymLinks
+   Require all granted
+ </Directory>
+ </VirtualHost>
+ " >> $FILE
 
 sudo a2ensite $FILE
 sudo service apache2 reload
